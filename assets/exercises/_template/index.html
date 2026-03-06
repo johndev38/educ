@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<!--
+  ================================================================
+  TEMPLATE – Exercice EduKids
+  ================================================================
+  Copie ce dossier pour créer un nouvel exercice.
+  Cherche les blocs  ✏️ PERSONNALISER  dans ce fichier et dans
+  script.js pour adapter le template à ton exercice.
+  ================================================================
+-->
+<head>
+  <meta charset="UTF-8" />
+  <!--
+    viewport : user-scalable=no évite le double-tap zoom iOS/Android
+    qui perturbe l'interaction enfant.
+  -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+  <!-- ✏️ PERSONNALISER : titre de l'onglet -->
+  <title>Titre de l'exercice</title>
+
+  <!--
+    Aucun CDN — tout est local pour un fonctionnement 100 % hors-ligne.
+    Flutter charge ce fichier depuis les assets via WebView.
+  -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==============================================================
+       EN-TÊTE  ✏️ PERSONNALISER : emoji + titre
+       ============================================================== -->
+  <header class="exercise-header">
+    <div class="exercise-header__icon" aria-hidden="true">➕</div>
+    <h1 class="exercise-header__title">Titre de l'exercice</h1>
+  </header>
+
+  <!-- ==============================================================
+       BARRE DE PROGRESSION
+       Mise à jour par script.js (progress-fill.style.width).
+       ============================================================== -->
+  <div class="progress-track" role="progressbar" aria-valuemin="0"
+       aria-valuemax="100" aria-valuenow="0">
+    <div id="progress-fill" class="progress-fill"></div>
+  </div>
+  <p id="progress-label" class="progress-label" aria-live="polite">
+    1 / 5
+  </p>
+
+  <!-- ==============================================================
+       SECTION PRINCIPALE (question + réponse + feedback)
+       Masquée par script.js quand on passe à l'écran résultat.
+       ============================================================== -->
+  <section id="question-section">
+
+    <!-- --- CARTE QUESTION --- -->
+    <div class="card">
+      <p class="card__label">Question</p>
+
+      <!--
+        ✏️ PERSONNALISER : tu peux enrichir cette zone avec des images,
+        des emojis, ou un rendu dynamique depuis script.js.
+      -->
+      <p id="question-text" class="question-text" aria-live="polite">
+        …
+      </p>
+    </div>
+
+    <!-- --- CARTE RÉPONSE --- -->
+    <div class="card">
+      <p class="card__label">Ta réponse</p>
+
+      <!--
+        Zone injectée dynamiquement par script.js.
+        En mode "choix multiple" : une .choices-grid avec des .choice-btn.
+        En mode "champ texte"    : un .answer-input-wrap avec un input.
+        ✏️ PERSONNALISER : tu peux pré-remplir avec un contenu HTML statique
+        si ton exercice a une interface fixe (ex : clavier virtuel, dessin…).
+      -->
+      <div id="answer-section"></div>
+
+      <!--
+        Bouton Valider — affiché uniquement en mode "champ texte".
+        En mode choix multiple, il est masqué par script.js.
+        ✏️ PERSONNALISER : retire ce bouton si tu n'en as pas besoin.
+      -->
+      <button id="btn-validate" class="btn-validate" type="button">
+        ✔ Valider
+      </button>
+
+      <!-- Feedback visuel correct / incorrect -->
+      <p id="feedback" class="feedback feedback--empty" role="status"
+         aria-live="assertive"></p>
+    </div>
+
+  </section>
+
+  <!-- ==============================================================
+       ÉCRAN DE RÉSULTAT
+       Affiché par script.js quand toutes les questions sont répondues.
+       ============================================================== -->
+  <section id="result-screen" class="result-screen" aria-live="polite">
+
+    <!-- ✏️ PERSONNALISER : adapte les textes par défaut si tu veux -->
+    <p id="result-emoji"  class="result-emoji"  aria-hidden="true">🎉</p>
+    <p id="result-title"  class="result-title">Excellent travail !</p>
+    <p id="result-score"  class="result-score">0 / 5</p>
+    <p id="result-detail" class="result-detail"></p>
+
+    <button id="btn-restart" class="btn-restart" type="button">
+      🔄 Rejouer
+    </button>
+
+  </section>
+
+  <!--
+    script.js en fin de body pour s'assurer que le DOM est prêt.
+    Aucun defer/async nécessaire ici.
+  -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "addition",
+    "title": "Additions simples",
+    "description": "Additionne deux nombres et trouve le bon résultat !",
+    "category": "Mathématiques",
+    "difficulty": "easy",
+    "ageMin": 5,
+    "ageMax": 8,
+    "iconName": "calculate",
+    "colorHex": "4A90D9"
+  },
+  {
+    "id": "counting",
+    "title": "Compter les objets",
+    "description": "Compte les étoiles et sélectionne le bon chiffre.",
+    "category": "Mathématiques",
+    "difficulty": "easy",
+    "ageMin": 4,
+    "ageMax": 7,
+    "iconName": "format_list_numbered",
+    "colorHex": "E67E22"
+  },
+  {
+    "id": "complements",
+    "title": "Compléments à 10, 100, 1000",
+    "description": "Réussis 15 calculs de suite ! 5 secondes par question.",
+    "category": "Mathématiques",
+    "difficulty": "medium",
+    "ageMin": 7,
+    "ageMax": 9,
+    "iconName": "calculate",
+    "colorHex": "E74C3C"
+  }
+]

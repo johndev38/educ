@@ -1,0 +1,59 @@
+name: edukids_exercises
+description: Application éducative pour enfants – exercices HTML/JS embarqués.
+publish_to: "none"
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Affichage des exercices HTML/JS locaux
+  webview_flutter: ^4.7.0
+
+  # Stockage local des scores et de la progression
+  shared_preferences: ^2.2.3
+
+  # Requêtes HTTP (téléchargement catalogue + zips)
+  http: ^1.2.0
+
+  # Décompression des zips d'exercices (100 % Dart, sans dépendance native)
+  archive: ^3.4.10
+
+  # Chemin vers les répertoires de l'application (documents, cache…)
+  path_provider: ^2.1.3
+
+  # Manipulation des chemins de fichiers cross-platform
+  path: ^1.9.0
+
+  # Icônes Material
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    # Catalogue des exercices embarqués
+    - assets/exercises/manifest.json
+
+    # Exercice 1 – Additions simples
+    - assets/exercises/addition/index.html
+    - assets/exercises/addition/style.css
+    - assets/exercises/addition/script.js
+
+    # Exercice 2 – Compter les objets
+    - assets/exercises/counting/index.html
+    - assets/exercises/counting/style.css
+    - assets/exercises/counting/script.js
+
+    # Exercice 3 – Compléments à 10, 100, 1000
+    - assets/exercises/complements/index.html
+    - assets/exercises/complements/style.css
+    - assets/exercises/complements/script.js

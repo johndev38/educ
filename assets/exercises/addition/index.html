@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Additions simples</title>
+  <!--
+    Exercice HTML/JS entièrement autonome.
+    Aucune ressource externe : fonctionne 100 % hors-ligne.
+    Communication avec Flutter via ExerciseChannel (canal webview_flutter).
+  -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>➕ Additions simples</h1>
+  </header>
+
+  <!-- Barre de progression -->
+  <div id="progress-bar-container">
+    <div id="progress-bar"></div>
+  </div>
+  <p id="progress-label">Question 1 / 10</p>
+
+  <!-- Section principale : question + réponses -->
+  <section id="question-section" class="card">
+    <p id="question-text">… + … = ?</p>
+    <div id="answers-grid"></div>
+    <p id="feedback"></p>
+  </section>
+
+  <!-- Écran de résultat (masqué par défaut, affiché par JS) -->
+  <section id="result-screen">
+    <p id="result-emoji">🎉</p>
+    <p id="result-title">Excellent travail !</p>
+    <p id="result-score">0 / 10</p>
+    <p id="result-detail"></p>
+    <button id="restart-btn">🔄 Rejouer</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

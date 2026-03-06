@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Compléments à 10, 100, 1000</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       EN-TÊTE : titre + compteur de série
+       ═══════════════════════════════════════════ -->
+  <header class="ex-header">
+    <h1 class="ex-header__title">🔢 Compléments</h1>
+    <div class="streak-counter" id="streak-counter" aria-live="polite">
+      <span class="streak-counter__fire">🔥</span>
+      <span class="streak-counter__value" id="streak-value">0</span>
+      <span class="streak-counter__sep">/</span>
+      <span class="streak-counter__target">15</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MINUTEUR : barre + chiffre du compte à rebours
+       ═══════════════════════════════════════════ -->
+  <div class="timer-wrap">
+    <div class="timer-track" role="progressbar" aria-valuemin="0"
+         aria-valuemax="100" aria-valuenow="100" aria-label="Temps restant">
+      <div id="timer-bar" class="timer-bar timer-bar--ok"></div>
+    </div>
+    <span id="timer-label" class="timer-label">5</span>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION PRINCIPALE : question + réponses
+       ═══════════════════════════════════════════ -->
+  <main id="question-section">
+
+    <!-- Carte question -->
+    <div class="card" id="question-card">
+      <p id="type-label" class="type-label type--10">Complément à 10</p>
+      <div id="question-text" class="equation" aria-live="polite">
+        <!-- injecté par script.js -->
+      </div>
+    </div>
+
+    <!-- Carte réponses -->
+    <div class="card">
+      <div id="answer-section" class="choices-grid">
+        <!-- injecté par script.js -->
+      </div>
+      <!-- Masqué (pas de mode texte dans cet exercice) -->
+      <button id="btn-validate" class="btn-validate" style="display:none"
+              type="button">✔ Valider</button>
+      <p id="feedback" class="feedback feedback--empty"
+         role="status" aria-live="assertive"></p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       BARRE DE SÉRIE : 15 pastilles
+       ═══════════════════════════════════════════ -->
+  <div id="streak-dots" class="streak-dots" aria-label="Progression de la série">
+    <!-- 15 pastilles injectées par script.js -->
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN DE FIN (victoire OU résultat)
+       ═══════════════════════════════════════════ -->
+  <section id="result-screen" class="result-screen" aria-live="polite">
+    <p id="result-emoji"  class="result-emoji">🏆</p>
+    <p id="result-title"  class="result-title">15 de suite !</p>
+    <p id="result-streak" class="result-streak"></p>
+    <p id="result-score"  class="result-score">0 / 0</p>
+    <p id="result-detail" class="result-detail"></p>
+    <button id="btn-restart" class="btn-restart" type="button">
+      🔄 Rejouer
+    </button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

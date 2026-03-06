@@ -1,0 +1,11 @@
+{
+  "id":          "complements",
+  "title":       "Compléments à 10, 100, 1000",
+  "description": "Réussis 15 calculs de suite ! 5 secondes par question.",
+  "category":    "Mathématiques",
+  "difficulty":  "medium",
+  "ageMin":      7,
+  "ageMax":      9,
+  "iconName":    "calculate",
+  "colorHex":    "E74C3C"
+}

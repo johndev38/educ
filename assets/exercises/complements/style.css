@@ -1,0 +1,405 @@
+/* =============================================================
+   Compléments à 10 / 100 / 1000  —  CE2
+   Thème : rouge chaud, urgence du timer, éclats de victoire
+   ============================================================= */
+
+/* ------------------------------------------------------------------
+   1. VARIABLES
+   ------------------------------------------------------------------ */
+:root {
+  /* Couleurs type d'exercice */
+  --c-10:    #3498DB;   /* complément à 10   → bleu  */
+  --c-100:   #8E44AD;   /* complément à 100  → violet */
+  --c-1000:  #E74C3C;   /* complément à 1000 → rouge  */
+
+  /* Timer */
+  --timer-ok:     #2ECC71;
+  --timer-warn:   #F39C12;
+  --timer-danger: #E74C3C;
+
+  /* UI générale */
+  --c-bg:       #FFF5F5;
+  --c-surface:  #FFFFFF;
+  --c-text:     #1A2B3C;
+  --c-muted:    #7F8C9A;
+  --c-border:   #E8D5D5;
+  --c-correct:  #27AE60;
+  --c-correct-lt: #D5F5E3;
+  --c-wrong:    #E74C3C;
+  --c-wrong-lt: #FADBD8;
+  --c-streak:   #F1C40F;   /* pastilles de série */
+  --c-blank:    #FFF3CD;   /* fond de la case "?" */
+
+  /* Géométrie */
+  --radius:  16px;
+  --shadow:  0 4px 20px rgba(231,76,60,.10);
+
+  /* Typo */
+  --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   2. RESET
+   ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--c-bg);
+  color: var(--c-text);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px 28px;
+  max-width: 600px;
+  margin-inline: auto;
+  gap: 12px;
+}
+
+/* ------------------------------------------------------------------
+   3. EN-TÊTE
+   ------------------------------------------------------------------ */
+.ex-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.ex-header__title {
+  font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+  font-weight: 800;
+  color: var(--c-1000);
+}
+
+/* Compteur de série */
+.streak-counter {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--c-surface);
+  border: 2px solid var(--c-streak);
+  border-radius: 999px;
+  padding: 4px 14px 4px 10px;
+}
+
+.streak-counter__fire  { font-size: 1.2rem; line-height: 1; }
+
+.streak-counter__value {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--c-1000);
+  min-width: 1.5ch;
+  text-align: right;
+  transition: transform 0.15s ease;
+}
+.streak-counter__value.bump {
+  animation: anim-bump 0.25s ease;
+}
+
+.streak-counter__sep,
+.streak-counter__target {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+
+/* ------------------------------------------------------------------
+   4. MINUTEUR
+   ------------------------------------------------------------------ */
+.timer-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.timer-track {
+  flex: 1;
+  height: 18px;
+  background: #F0E0E0;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  height: 100%;
+  width: 100%;
+  border-radius: 999px;
+  background: var(--timer-ok);
+  transition: background-color 0.3s ease;
+  /* Pas de transition sur width : mise à jour JS toutes les 50ms = fluide */
+}
+
+.timer-bar--ok     { background: var(--timer-ok); }
+.timer-bar--warn   { background: var(--timer-warn); }
+.timer-bar--danger {
+  background: var(--timer-danger);
+  animation: anim-pulse 0.4s infinite alternate;
+}
+
+.timer-label {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--c-text);
+  min-width: 1.5ch;
+  text-align: right;
+}
+
+/* ------------------------------------------------------------------
+   5. CARTE GÉNÉRIQUE
+   ------------------------------------------------------------------ */
+.card {
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 18px;
+  width: 100%;
+}
+
+/* ------------------------------------------------------------------
+   6. CARTE QUESTION
+   ------------------------------------------------------------------ */
+.type-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-block;
+  color: #fff;
+}
+.type--10   { background: var(--c-10); }
+.type--100  { background: var(--c-100); }
+.type--1000 { background: var(--c-1000); }
+
+/* Équation : A + [?] = B */
+.equation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(6px, 2vw, 14px);
+  flex-wrap: wrap;
+  padding: 8px 0 4px;
+}
+
+.eq-num,
+.eq-op,
+.eq-target {
+  font-size: clamp(2rem, 9vw, 3.5rem);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.eq-op     { color: var(--c-muted); }
+.eq-target { color: var(--c-10); }  /* sera surchargée par JS via classe */
+
+/* Case de la réponse manquante */
+.eq-blank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: clamp(60px, 18vw, 110px);
+  height: clamp(54px, 14vw, 80px);
+  background: var(--c-blank);
+  border: 3px dashed #D4A017;
+  border-radius: 12px;
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  font-weight: 900;
+  color: #7D5A00;
+  transition: background 0.2s, border-color 0.2s;
+}
+/* Quand la réponse est révélée (ajout de classe par JS) */
+.eq-blank.revealed-correct {
+  background: var(--c-correct-lt);
+  border-color: var(--c-correct);
+  color: var(--c-correct);
+}
+.eq-blank.revealed-wrong {
+  background: var(--c-wrong-lt);
+  border-color: var(--c-wrong);
+  color: var(--c-wrong);
+}
+
+/* ------------------------------------------------------------------
+   7. GRILLE DE RÉPONSES
+   ------------------------------------------------------------------ */
+.choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice-btn {
+  font-family: var(--font);
+  font-size: clamp(1.3rem, 5vw, 2rem);
+  font-weight: 800;
+  padding: 18px 8px;
+  border: 3px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-text);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.1s, background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.choice-btn:hover:not(:disabled) {
+  background: #FFF0EE;
+  border-color: var(--c-1000);
+  transform: translateY(-2px);
+}
+.choice-btn:active:not(:disabled) { transform: scale(0.96); }
+
+.choice-btn--correct {
+  background: var(--c-correct-lt) !important;
+  border-color: var(--c-correct) !important;
+  color: var(--c-correct) !important;
+  animation: anim-bounce 0.4s ease;
+}
+.choice-btn--wrong {
+  background: var(--c-wrong-lt) !important;
+  border-color: var(--c-wrong) !important;
+  color: var(--c-wrong) !important;
+  animation: anim-shake 0.4s ease;
+}
+.choice-btn:disabled { cursor: default; transform: none !important; }
+
+/* ------------------------------------------------------------------
+   8. FEEDBACK
+   ------------------------------------------------------------------ */
+.feedback {
+  min-height: 1.6em;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 12px;
+}
+.feedback--correct { color: var(--c-correct); }
+.feedback--wrong   { color: var(--c-wrong); }
+.feedback--empty   { opacity: 0; pointer-events: none; }
+
+/* ------------------------------------------------------------------
+   9. PASTILLES DE SÉRIE (15 cercles)
+   ------------------------------------------------------------------ */
+.streak-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 4px 0;
+}
+
+.streak-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #E8D5D5;
+  border: 2px solid #D4AAAA;
+  transition: background 0.2s, transform 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+}
+.streak-dot.dot-active {
+  background: var(--c-streak);
+  border-color: #C9A90A;
+  transform: scale(1.15);
+}
+.streak-dot.dot-just-added {
+  animation: anim-pop 0.3s ease;
+}
+
+/* ------------------------------------------------------------------
+   10. ÉCRAN DE FIN
+   ------------------------------------------------------------------ */
+.result-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  width: 100%;
+  padding: 16px 0;
+  animation: anim-fadein 0.5s ease;
+}
+.result-screen.is-visible { display: flex; }
+
+.result-emoji  { font-size: 5rem; line-height: 1; }
+.result-title  { font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 800; }
+.result-streak {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--c-muted);
+}
+.result-score  {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 900;
+  color: var(--c-1000);
+}
+.result-detail { font-size: 0.95rem; color: var(--c-muted); }
+
+.btn-restart {
+  font-family: var(--font);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 16px 48px;
+  margin-top: 8px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--c-1000);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-restart:hover { opacity: 0.88; }
+
+/* ------------------------------------------------------------------
+   11. ANIMATIONS
+   ------------------------------------------------------------------ */
+@keyframes anim-bounce {
+  0%, 100% { transform: scale(1); }
+  45%       { transform: scale(1.1); }
+}
+@keyframes anim-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  60%       { transform: translateX(10px); }
+}
+@keyframes anim-pulse {
+  from { opacity: 1; }
+  to   { opacity: 0.65; }
+}
+@keyframes anim-bump {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+@keyframes anim-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to   { transform: scale(1.15); opacity: 1; }
+}
+@keyframes anim-fadein {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------
+   12. RESPONSIVE TABLETTE
+   ------------------------------------------------------------------ */
+@media (min-width: 600px) {
+  body { padding: 20px 32px 40px; gap: 16px; }
+
+  .card { padding: 28px 24px; }
+
+  .choice-btn { font-size: 2rem; padding: 22px 12px; }
+
+  .streak-dot { width: 26px; height: 26px; }
+
+  .timer-track { height: 22px; }
+}

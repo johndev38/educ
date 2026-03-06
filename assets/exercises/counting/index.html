@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Compter les objets</title>
+  <!--
+    Exercice HTML/JS entièrement autonome – 100 % hors-ligne.
+    Communication avec Flutter via ExerciseChannel.postMessage(json).
+  -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header>
+    <h1>🔢 Compter les objets</h1>
+  </header>
+
+  <div id="progress-bar-container">
+    <div id="progress-bar"></div>
+  </div>
+  <p id="progress-label">Question 1 / 8</p>
+
+  <section id="question-section" class="card">
+    <p id="prompt">Combien y a-t-il d'objets ?</p>
+    <div id="objects-display"></div>
+    <div id="answers-grid"></div>
+    <p id="feedback"></p>
+  </section>
+
+  <section id="result-screen">
+    <p id="result-emoji">🌟</p>
+    <p id="result-title">Super compter !</p>
+    <p id="result-score">0 / 8</p>
+    <p id="result-detail"></p>
+    <button id="restart-btn">🔄 Rejouer</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

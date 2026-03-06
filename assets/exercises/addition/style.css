@@ -1,0 +1,191 @@
+/* =========================================================
+   Styles de l'exercice : Additions simples
+   ========================================================= */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary:   #4A90D9;
+  --success:   #27AE60;
+  --error:     #E74C3C;
+  --neutral:   #ECF0F1;
+  --text:      #2C3E50;
+  --radius:    16px;
+  --font:      system-ui, -apple-system, sans-serif;
+}
+
+body {
+  font-family: var(--font);
+  background: #F0F6FF;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+}
+
+/* ---------- En-tête ---------- */
+header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+header h1 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--primary);
+}
+
+/* ---------- Progression ---------- */
+#progress-bar-container {
+  width: 100%;
+  max-width: 480px;
+  background: var(--neutral);
+  border-radius: 8px;
+  height: 14px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+#progress-bar {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 8px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+#progress-label {
+  font-size: 0.9rem;
+  color: #7F8C8D;
+  margin-bottom: 24px;
+}
+
+/* ---------- Carte question ---------- */
+.card {
+  background: #fff;
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  width: 100%;
+  max-width: 480px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+#question-text {
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 28px;
+  letter-spacing: 2px;
+}
+
+/* ---------- Grille de réponses ---------- */
+#answers-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.answer-btn {
+  font-size: clamp(1.4rem, 5vw, 2rem);
+  font-weight: 700;
+  padding: 20px 0;
+  border: 3px solid transparent;
+  border-radius: var(--radius);
+  background: var(--neutral);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s, border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.answer-btn:hover {
+  background: #D6EAF8;
+  transform: scale(1.04);
+}
+
+.answer-btn.correct {
+  background: #D5F5E3;
+  border-color: var(--success);
+  color: var(--success);
+  animation: bounce 0.4s ease;
+}
+
+.answer-btn.wrong {
+  background: #FADBD8;
+  border-color: var(--error);
+  color: var(--error);
+  animation: shake 0.4s ease;
+}
+
+.answer-btn:disabled {
+  cursor: default;
+  transform: none;
+}
+
+/* ---------- Feedback ---------- */
+#feedback {
+  font-size: 1.1rem;
+  min-height: 1.6em;
+  margin-top: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---------- Écran de fin ---------- */
+#result-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+#result-screen.visible {
+  display: flex;
+}
+
+#result-emoji  { font-size: 5rem; }
+#result-title  { font-size: 1.8rem; font-weight: 700; }
+#result-score  { font-size: 3rem; font-weight: 800; color: var(--primary); }
+#result-detail { color: #7F8C8D; }
+
+#restart-btn {
+  margin-top: 16px;
+  padding: 16px 40px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+#restart-btn:hover { opacity: 0.88; }
+
+/* ---------- Animations ---------- */
+@keyframes bounce {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-8px); }
+  75%       { transform: translateX(8px); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

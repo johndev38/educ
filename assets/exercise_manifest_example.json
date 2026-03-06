@@ -1,0 +1,14 @@
+{
+  "_comment": "Ce fichier doit être inclus à la racine de chaque zip d'exercice.",
+  "_comment2": "Il permet à ExerciseCatalogService de découvrir l'exercice sans recompiler.",
+
+  "id":          "letters",
+  "title":       "Reconnais les lettres",
+  "description": "Associe chaque image à la bonne lettre de l'alphabet.",
+  "category":    "Lecture",
+  "difficulty":  "easy",
+  "ageMin":      4,
+  "ageMax":      7,
+  "iconName":    "menu_book",
+  "colorHex":    "27AE60"
+}
