@@ -1,27 +1,23 @@
 // Écran de lecture d'un exercice HTML/JS.
 //
-// Stratégie de chargement (dans l'ordre de priorité) :
-//   1. Exercice local téléchargé (ExerciseSource.local)
-//        → loadFile(absolutePath) directement.
-//   2. Exercice embarqué dans les assets (ExerciseSource.asset)
-//        → copie d'abord vers le stockage local via initBundledExercise(),
-//          puis loadFile() — garantit que CSS/JS relatifs se chargent.
-//   3. Fallback (extraction impossible) → message d'erreur.
+// Stratégie de chargement :
+//   • Exercice embarqué (ExerciseSource.asset)  → rootBundle (assets Flutter)
+//   • Exercice téléchargé (ExerciseSource.local) → stockage local (fichiers)
 //
-// Pourquoi loadFile() et pas loadHtmlString() ?
-//   loadHtmlString() n'a pas de base URL : les <link href="style.css">
-//   et <script src="script.js"> ne se resolvent pas.
-//   loadFile() fixe la base URL au répertoire du fichier, ce qui rend
-//   les références relatives pleinement fonctionnelles.
+// Dans les deux cas, le CSS et le JS sont inlinés dans le HTML avant le
+// chargement via loadHtmlString(). Aucune dépendance externe à résoudre :
+// fonctionne sur toutes les plateformes indépendamment des politiques
+// file:// du WebView Android.
 //
 // Canal JavaScript :
 //   ExerciseChannel.postMessage(JSON.stringify(payload))
-//   payload contient : type, exerciseId, score, total, successRate,
-//                      durationMs, answers
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:path/path.dart' as p;
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../../shared/models/exercise_definition.dart';
@@ -44,9 +40,9 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
 
   late final WebViewController _controller;
 
-  bool _isLoading  = true;
-  ExerciseResult?  _result;
-  String?          _loadError;
+  bool            _isLoading = true;
+  ExerciseResult? _result;
+  String?         _loadError;
 
   @override
   void initState() {
@@ -54,9 +50,9 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
     _initWebView();
   }
 
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Initialisation de la WebView
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   void _initWebView() {
     _controller = WebViewController()
@@ -64,44 +60,36 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
       ..setBackgroundColor(Colors.white)
       ..setNavigationDelegate(
         NavigationDelegate(
-          onPageStarted:   (_) => setState(() => _isLoading = true),
-          onPageFinished:  (_) => setState(() => _isLoading = false),
+          onPageStarted:  (_) => setState(() => _isLoading = true),
+          onPageFinished: (_) => setState(() => _isLoading = false),
           onWebResourceError: (error) {
-            // On ignore les erreurs mineures de sous-ressources
-            // (polices système manquantes, etc.).
-            if (error.errorType == WebResourceErrorType.unknown &&
-                error.description.contains('ERR_CACHE_MISS')) return;
-
-            setState(() {
-              _loadError =
-                  'Erreur de chargement (${error.errorCode}) : '
-                  '${error.description}';
-              _isLoading = false;
-            });
+            if (error.isForMainFrame == true &&
+                !(error.description.contains('ERR_CACHE_MISS'))) {
+              setState(() {
+                _loadError = 'Erreur WebView (${error.errorCode}) : '
+                    '${error.description}';
+                _isLoading = false;
+              });
+            }
           },
-          // Bloque toute navigation externe — les exercices sont 100 % locaux.
-          onNavigationRequest: (request) {
-            final url = request.url;
-            if (url.startsWith('file://') ||
-                url.startsWith('about:') ||
-                url.startsWith('data:')) {
+          // Exercices 100 % locaux : aucune navigation externe autorisée.
+          onNavigationRequest: (req) {
+            final url = req.url;
+            if (url.startsWith('about:') || url.startsWith('data:')) {
               return NavigationDecision.navigate;
             }
-            debugPrint('[Player] Navigation externe bloquée : $url');
             return NavigationDecision.prevent;
           },
         ),
       )
-      // Canal nommé "ExerciseChannel" — injecté dans la WebView.
-      // Côté JS : ExerciseChannel.postMessage(JSON.stringify(payload))
       ..addJavaScriptChannel('ExerciseChannel', onMessageReceived: _onMessage);
 
     _loadExercise();
   }
 
-  // ---------------------------------------------------------------------------
-  // Chargement du fichier HTML
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Chargement
+  // -------------------------------------------------------------------------
 
   Future<void> _loadExercise() async {
     setState(() {
@@ -110,65 +98,134 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
     });
 
     try {
-      // Pour les exercices embarqués : extraction vers le stockage local
-      // si ce n'est pas déjà fait (ou si une version téléchargée existe déjà).
-      if (!widget.exercise.isLocal) {
-        await _storage.initBundledExercise(widget.exercise.id);
+      final String? html;
+
+      if (widget.exercise.isLocal) {
+        // Exercice téléchargé : fichiers sur le stockage local.
+        html = await _buildInlineHtmlFromFiles(widget.exercise.id);
+      } else {
+        // Exercice embarqué : lit directement depuis les assets Flutter.
+        html = await _buildInlineHtmlFromAssets(widget.exercise.id);
       }
 
-      // Récupère le chemin absolu vers index.html.
-      final indexPath = await _storage.getIndexFilePath(widget.exercise.id);
-
-      if (indexPath == null) {
+      if (html == null) {
         setState(() {
-          _loadError = 'Fichiers de l\'exercice introuvables. '
-              'Vérifiez votre connexion et réessayez.';
+          _loadError = 'Fichiers introuvables pour '
+              '« ${widget.exercise.title} ».\n'
+              'Vérifiez que l\'exercice est bien installé.';
           _isLoading = false;
         });
         return;
       }
 
-      // loadFile() fixe la base URL au répertoire du fichier :
-      // les CSS/JS relatifs (style.css, script.js) se chargent correctement.
-      await _controller.loadFile(indexPath);
+      await _controller.loadHtmlString(html);
     } catch (e) {
       setState(() {
-        _loadError = 'Erreur lors du chargement : $e';
+        _loadError = 'Erreur de chargement : $e';
         _isLoading = false;
       });
     }
   }
 
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
+  // Construction du HTML autonome – source : assets Flutter
+  // -------------------------------------------------------------------------
+
+  /// Lit index.html, style.css et script.js depuis le bundle Flutter (assets)
+  /// et retourne un HTML unique avec CSS et JS inlinés.
+  Future<String?> _buildInlineHtmlFromAssets(String id) async {
+    final base = 'assets/exercises/$id';
+    try {
+      String html = await rootBundle.loadString('$base/index.html');
+
+      try {
+        final css = await rootBundle.loadString('$base/style.css');
+        html = _inlineCss(html, css);
+      } catch (_) {}
+
+      try {
+        final js = await rootBundle.loadString('$base/script.js');
+        html = _inlineJs(html, js);
+      } catch (_) {}
+
+      return html;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Construction du HTML autonome – source : stockage local
+  // -------------------------------------------------------------------------
+
+  /// Lit les fichiers depuis le stockage local (exercices téléchargés)
+  /// et retourne un HTML unique avec CSS et JS inlinés.
+  Future<String?> _buildInlineHtmlFromFiles(String id) async {
+    final dir = await _storage.getExerciseDir(id);
+
+    final indexFile = File(p.join(dir.path, 'index.html'));
+    if (!await indexFile.exists()) return null;
+
+    String html = await indexFile.readAsString();
+
+    final cssFile = File(p.join(dir.path, 'style.css'));
+    if (await cssFile.exists()) {
+      html = _inlineCss(html, await cssFile.readAsString());
+    }
+
+    final jsFile = File(p.join(dir.path, 'script.js'));
+    if (await jsFile.exists()) {
+      html = _inlineJs(html, await jsFile.readAsString());
+    }
+
+    return html;
+  }
+
+  // -------------------------------------------------------------------------
+  // Helpers d'inlinage
+  // -------------------------------------------------------------------------
+
+  /// Remplace <link href="style.css" …> par <style>…css…</style>.
+  static String _inlineCss(String html, String css) => html.replaceFirst(
+        RegExp(
+          r'''<link\b[^>]+href=["']style\.css["'][^>]*/?>''',
+          caseSensitive: false,
+        ),
+        '<style>\n$css\n</style>',
+      );
+
+  /// Remplace <script src="script.js"></script> par <script>…js…</script>.
+  static String _inlineJs(String html, String js) => html.replaceFirst(
+        RegExp(
+          r'''<script\b[^>]+src=["']script\.js["'][^>]*>\s*</script>''',
+          caseSensitive: false,
+        ),
+        '<script>\n$js\n</script>',
+      );
+
+  // -------------------------------------------------------------------------
   // Réception du message JavaScript
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   void _onMessage(JavaScriptMessage message) {
     try {
       final Map<String, dynamic> data =
           json.decode(message.message) as Map<String, dynamic>;
 
-      // Le JS peut envoyer des messages intermédiaires (type ≠ exercise_result).
-      final type = data['type'] as String?;
-      if (type != 'exercise_result') {
-        debugPrint('[ExerciseChannel] Message ignoré (type=$type)');
-        return;
-      }
+      if (data['type'] != 'exercise_result') return;
 
       final result = ExerciseResult.fromJson(data);
-
       _progress.saveResult(result).then((_) {
         if (mounted) setState(() => _result = result);
       });
     } catch (e) {
       debugPrint('[ExerciseChannel] Message invalide : ${message.message}');
-      debugPrint('[ExerciseChannel] Erreur : $e');
     }
   }
 
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Build
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   @override
   Widget build(BuildContext context) {
@@ -186,27 +243,15 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
       ),
       body: Stack(
         children: [
-          // ------------------------------------------------------------------
-          // WebView
-          // ------------------------------------------------------------------
           if (_loadError == null)
             WebViewWidget(controller: _controller),
 
-          // ------------------------------------------------------------------
-          // Indicateur de chargement
-          // ------------------------------------------------------------------
           if (_isLoading)
             const Center(child: CircularProgressIndicator()),
 
-          // ------------------------------------------------------------------
-          // Erreur de chargement
-          // ------------------------------------------------------------------
           if (_loadError != null)
             _ErrorView(message: _loadError!, onRetry: _loadExercise),
 
-          // ------------------------------------------------------------------
-          // Overlay de résultat (dès que le JS envoie le payload final)
-          // ------------------------------------------------------------------
           if (_result != null)
             _ResultOverlay(
               result:       _result!,
@@ -219,9 +264,9 @@ class _ExercisePlayerPageState extends State<ExercisePlayerPage> {
     );
   }
 
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
   // Actions
-  // ---------------------------------------------------------------------------
+  // -------------------------------------------------------------------------
 
   void _restart() {
     setState(() {
@@ -317,8 +362,6 @@ class _ResultOverlay extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 24),
-
-                // Score
                 Text(
                   '${result.score} / ${result.maxScore}',
                   style: TextStyle(
@@ -338,8 +381,6 @@ class _ResultOverlay extends StatelessWidget {
                       ?.copyWith(color: Colors.grey),
                 ),
                 const SizedBox(height: 32),
-
-                // Actions
                 ElevatedButton.icon(
                   onPressed: onRestart,
                   icon: const Icon(Icons.replay),
@@ -347,6 +388,10 @@ class _ResultOverlay extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colorScheme.primary,
                     foregroundColor: Colors.white,
+                    minimumSize: const Size(double.infinity, 56),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 12),

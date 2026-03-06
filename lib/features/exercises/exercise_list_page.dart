@@ -105,8 +105,8 @@ class _ExerciseListPageState extends State<ExerciseListPage> {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: isTablet ? 2 : 1,
         crossAxisSpacing: 16,
-        mainAxisSpacing: 4,
-        childAspectRatio: isTablet ? 1.6 : 2.8,
+        mainAxisSpacing: 12,
+        mainAxisExtent: isTablet ? 160 : 180,
       ),
       itemCount: _exercises.length,
       itemBuilder: (_, index) => _ExerciseCard(
@@ -288,7 +288,7 @@ class _Badge extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: color.withOpacity(0.4)),
       ),
-        child: Text(
+      child: Text(
         label,
         style: TextStyle(
           fontSize: 12,
@@ -318,7 +318,8 @@ class _ScoreIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!hasBeenPlayed) {
-      return const Icon(Icons.play_circle_outline, size: 36, color: Colors.grey);
+      return const Icon(Icons.play_circle_outline,
+          size: 36, color: Colors.grey);
     }
 
     final score = bestScore ?? 0;

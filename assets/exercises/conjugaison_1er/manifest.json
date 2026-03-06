@@ -1,0 +1,11 @@
+{
+  "id":          "conjugaison_1er",
+  "title":       "Conjugaison – 1er groupe",
+  "description": "Conjugue les verbes en -ER au présent de l'indicatif.",
+  "category":    "Français",
+  "difficulty":  "medium",
+  "ageMin":      7,
+  "ageMax":      10,
+  "iconName":    "menu_book",
+  "colorHex":    "1ABC9C"
+}

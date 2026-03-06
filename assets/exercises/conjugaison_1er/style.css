@@ -1,0 +1,362 @@
+/* =============================================================
+   Conjugaison – 1er groupe
+   Thème : vert menthe / teal — Français
+   ============================================================= */
+
+/* ------------------------------------------------------------------
+   1. VARIABLES
+   ------------------------------------------------------------------ */
+:root {
+  --c-primary:    #1ABC9C;
+  --c-primary-dk: #17A589;
+  --c-bg:         #EDFAF7;
+  --c-surface:    #FFFFFF;
+  --c-border:     #C0EEE6;
+  --c-text:       #1A2B3C;
+  --c-muted:      #7F8C9A;
+
+  --c-correct:    #27AE60;
+  --c-correct-lt: #D5F5E3;
+  --c-wrong:      #E74C3C;
+  --c-wrong-lt:   #FADBD8;
+
+  /* Couleurs spécifiques à la formule */
+  --c-pronoun-bg: #1ABC9C;   /* badge du pronom */
+  --c-verb-bg:    #E8FBF7;   /* fond du verbe infinitif */
+  --c-verb-bd:    #1ABC9C;
+  --c-blank-bg:   #FFF3CD;   /* fond de la case "?" */
+  --c-blank-bd:   #D4A017;
+
+  /* Tableau de rappel */
+  --c-rule-bg:    #F0FAF7;
+  --c-rule-hl:    #1ABC9C;   /* colonne mise en évidence */
+
+  --radius: 16px;
+  --shadow: 0 4px 24px rgba(26,188,156,.11);
+  --font:   system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   2. RESET & BASE
+   ------------------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--c-bg);
+  color: var(--c-text);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 16px 32px;
+  max-width: 640px;
+  margin-inline: auto;
+  gap: 10px;
+}
+
+/* ------------------------------------------------------------------
+   3. EN-TÊTE
+   ------------------------------------------------------------------ */
+.ex-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.ex-header__icon  { font-size: 1.8rem; }
+.ex-header__title {
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
+  font-weight: 800;
+  color: var(--c-primary-dk);
+}
+
+/* ------------------------------------------------------------------
+   4. BARRE DE PROGRESSION
+   ------------------------------------------------------------------ */
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: var(--c-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--c-primary);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+.progress-label {
+  width: 100%;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--c-muted);
+}
+
+/* ------------------------------------------------------------------
+   5. CARTES
+   ------------------------------------------------------------------ */
+.card {
+  background: var(--c-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 18px;
+  width: 100%;
+}
+.card__label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--c-primary);
+  margin-bottom: 16px;
+}
+
+/* ------------------------------------------------------------------
+   6. FORMULE  pronom  +  verbe  =  ???
+   ------------------------------------------------------------------ */
+.formula {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(8px, 2.5vw, 18px);
+  flex-wrap: wrap;
+  padding: 4px 0 16px;
+}
+
+/* Badge du pronom */
+.formula-pronoun {
+  background: var(--c-pronoun-bg);
+  color: #fff;
+  font-size: clamp(1.6rem, 6.5vw, 2.8rem);
+  font-weight: 900;
+  padding: 8px 18px;
+  border-radius: 12px;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* Opérateurs + et = */
+.formula-op {
+  font-size: clamp(1.4rem, 5vw, 2.2rem);
+  font-weight: 700;
+  color: var(--c-muted);
+  line-height: 1;
+}
+
+/* Verbe à l'infinitif */
+.formula-verb {
+  background: var(--c-verb-bg);
+  border: 2px solid var(--c-verb-bd);
+  color: var(--c-primary-dk);
+  font-size: clamp(1.5rem, 6vw, 2.6rem);
+  font-weight: 800;
+  padding: 8px 16px;
+  border-radius: 12px;
+  font-style: italic;
+  white-space: nowrap;
+}
+
+/* Case réponse "?" */
+.formula-blank {
+  background: var(--c-blank-bg);
+  border: 3px dashed var(--c-blank-bd);
+  color: #7D5A00;
+  font-size: clamp(1.6rem, 6.5vw, 2.8rem);
+  font-weight: 900;
+  padding: 8px 22px;
+  border-radius: 12px;
+  min-width: 110px;
+  text-align: center;
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+  white-space: nowrap;
+}
+.formula-blank.revealed-correct {
+  background: var(--c-correct-lt);
+  border: 3px solid var(--c-correct);
+  color: var(--c-correct);
+}
+.formula-blank.revealed-wrong {
+  background: var(--c-wrong-lt);
+  border: 3px solid var(--c-wrong);
+  color: var(--c-wrong);
+}
+
+/* ------------------------------------------------------------------
+   7. TABLEAU DE RAPPEL DES TERMINAISONS
+   ------------------------------------------------------------------ */
+.rule-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.rule-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.72rem, 2.2vw, 0.88rem);
+  table-layout: fixed;
+}
+
+.rule-table th,
+.rule-table td {
+  border: 1px solid var(--c-border);
+  text-align: center;
+  padding: 5px 4px;
+  white-space: nowrap;
+}
+
+.rule-table th {
+  background: var(--c-rule-bg);
+  font-weight: 700;
+  color: var(--c-text);
+}
+
+.rule-table td {
+  font-weight: 800;
+  color: var(--c-primary-dk);
+  letter-spacing: 0.03em;
+}
+
+/* Colonne active (pronom en cours de la question) */
+.rule-table th.active-col,
+.rule-table td.active-col {
+  background: var(--c-primary);
+  color: #fff;
+  border-color: var(--c-primary-dk);
+}
+
+/* ------------------------------------------------------------------
+   8. GRILLE DE RÉPONSES
+   ------------------------------------------------------------------ */
+.choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.choice-btn {
+  font-family: var(--font);
+  font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+  font-weight: 800;
+  padding: 18px 10px;
+  border: 3px solid var(--c-border);
+  border-radius: var(--radius);
+  background: var(--c-surface);
+  color: var(--c-text);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.1s, background 0.15s, border-color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  /* Monospace pour aligner les terminaisons visuellement */
+  font-variant-numeric: tabular-nums;
+}
+.choice-btn:hover:not(:disabled) {
+  background: var(--c-verb-bg);
+  border-color: var(--c-primary);
+  transform: translateY(-2px);
+}
+.choice-btn:active:not(:disabled) { transform: scale(0.96); }
+
+.choice-btn--correct {
+  background: var(--c-correct-lt) !important;
+  border-color: var(--c-correct) !important;
+  color: var(--c-correct) !important;
+  animation: anim-bounce 0.4s ease;
+}
+.choice-btn--wrong {
+  background: var(--c-wrong-lt) !important;
+  border-color: var(--c-wrong) !important;
+  color: var(--c-wrong) !important;
+  animation: anim-shake 0.4s ease;
+}
+.choice-btn:disabled {
+  cursor: default;
+  transform: none !important;
+}
+
+/* ------------------------------------------------------------------
+   9. FEEDBACK
+   ------------------------------------------------------------------ */
+.feedback {
+  min-height: 1.6em;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 12px;
+}
+.feedback--correct { color: var(--c-correct); }
+.feedback--wrong   { color: var(--c-wrong); }
+.feedback--empty   { opacity: 0; pointer-events: none; }
+
+/* ------------------------------------------------------------------
+   10. ÉCRAN DE RÉSULTAT
+   ------------------------------------------------------------------ */
+.result-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  width: 100%;
+  animation: anim-fadein 0.5s ease;
+}
+.result-screen.is-visible { display: flex; }
+
+.result-emoji  { font-size: 5rem; line-height: 1; }
+.result-title  { font-size: clamp(1.4rem, 5vw, 2rem); font-weight: 800; }
+.result-score  {
+  font-size: clamp(2rem, 8vw, 3rem);
+  font-weight: 900;
+  color: var(--c-primary-dk);
+}
+.result-detail { font-size: 0.95rem; color: var(--c-muted); }
+
+.btn-restart {
+  font-family: var(--font);
+  font-size: 1.1rem;
+  font-weight: 800;
+  padding: 16px 48px;
+  margin-top: 8px;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--c-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-restart:hover { opacity: 0.88; }
+
+/* ------------------------------------------------------------------
+   11. ANIMATIONS
+   ------------------------------------------------------------------ */
+@keyframes anim-bounce {
+  0%, 100% { transform: scale(1); }
+  45%       { transform: scale(1.08); }
+}
+@keyframes anim-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  60%       { transform: translateX(10px); }
+}
+@keyframes anim-fadein {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ------------------------------------------------------------------
+   12. RESPONSIVE TABLETTE
+   ------------------------------------------------------------------ */
+@media (min-width: 600px) {
+  body { padding: 22px 36px 44px; }
+  .card { padding: 28px 26px; }
+  .choice-btn { font-size: 1.8rem; padding: 22px 14px; }
+  .formula-pronoun { font-size: 3rem; }
+  .formula-verb    { font-size: 2.6rem; }
+  .formula-blank   { font-size: 3rem; }
+  .rule-table { font-size: 0.92rem; }
+  .rule-table th, .rule-table td { padding: 7px 6px; }
+}

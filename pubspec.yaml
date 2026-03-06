@@ -53,7 +53,12 @@ flutter:
     - assets/exercises/counting/style.css
     - assets/exercises/counting/script.js
 
-    # Exercice 3 – Compléments à 10, 100, 1000
+    # Exercice 3 – Conjugaison 1er groupe
+    - assets/exercises/conjugaison_1er/index.html
+    - assets/exercises/conjugaison_1er/style.css
+    - assets/exercises/conjugaison_1er/script.js
+
+    # Exercice 4 – Compléments à 10, 100, 1000
     - assets/exercises/complements/index.html
     - assets/exercises/complements/style.css
     - assets/exercises/complements/script.js
