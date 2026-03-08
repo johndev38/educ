@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "id":          "additions",
+    "version":     1,
+    "title":       "Additions",
+    "description": "3 niveaux : jusqu'à 20, 99 ou 999. Réponds avant la fin du chrono !",
+    "category":    "Mathématiques",
+    "difficulty":  "easy",
+    "ageMin":      5,
+    "ageMax":      11,
+    "iconName":    "calculate",
+    "colorHex":    "2980B9",
+    "zipUrl":      "https://johndev38.github.io/educ/exercises/additions.zip"
+  }
+]
