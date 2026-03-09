@@ -11,5 +11,19 @@
     "iconName":    "calculate",
     "colorHex":    "2980B9",
     "zipUrl":      "https://johndev38.github.io/educ/exercises/additions.zip"
-  }
+  },
+  {
+  "id": "soustraction_colonne",
+  "title": "Soustractions en colonne",
+  "description": "Pose la soustraction et trouve le bon résultat. Exercice pour apprendre les soustractions avec retenue.",
+  "version": "1.0.0",
+  "zipUrl": "https://johndev38.github.io/educ/exercises/soustraction_colonne.zip",
+  "sizeBytes": 18000,
+  "category": "Mathématiques",
+  "difficulty": "easy",
+  "ageMin": 6,
+  "ageMax": 9,
+  "iconName": "calculate",
+  "colorHex": "4A90D9"
+}
 ]
