@@ -39,5 +39,19 @@
     "ageMax": 12,
     "iconName": "close",
     "colorHex": "E67E22"
+  },
+  {
+    "id": "taekwondo_termes",
+    "title": "Termes de taekwondo",
+    "description": "3 niveaux pour apprendre le vocabulaire du taekwondo jusqu'au 2e supérieur.",
+    "version": "1",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/taekwondo_termes.zip",
+    "sizeBytes": 7696,
+    "category": "Sport",
+    "difficulty": "medium",
+    "ageMin": 8,
+    "ageMax": 99,
+    "iconName": "sports_martial_arts",
+    "colorHex": "C0392B"
   }
 ]
