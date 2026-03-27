@@ -25,5 +25,19 @@
     "ageMax": 9,
     "iconName": "calculate",
     "colorHex": "4A90D9"
+  },
+  {
+    "id": "multiplications",
+    "title": "Tables de multiplication",
+    "description": "3 niveaux : tables de 2 à 5, 2 à 10, ou les difficiles ! Réponds avant la fin du chrono.",
+    "version": "1",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/multiplications.zip",
+    "sizeBytes": 7342,
+    "category": "Mathématiques",
+    "difficulty": "medium",
+    "ageMin": 7,
+    "ageMax": 12,
+    "iconName": "close",
+    "colorHex": "E67E22"
   }
 ]
