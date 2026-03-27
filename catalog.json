@@ -1,6 +1,6 @@
 [
   {
-  "id": "additions",
+    "id": "additions",
     "version": "1",
     "title": "Additions",
     "description": "3 niveaux : jusqu'à 20, 99 ou 999. Réponds avant la fin du chrono !",
@@ -25,19 +25,5 @@
     "ageMax": 9,
     "iconName": "calculate",
     "colorHex": "4A90D9"
-  }
-  {
-    "id": "alphabet_lettres",
-    "title": "Les lettres de l'alphabet",
-    "description": "Reconnais les lettres de l'alphabet en t'amusant.",
-    "version": "1",
-    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/alphabet_lettres.zip",
-    "sizeBytes": 18000,
-    "category": "Français",
-    "difficulty": "easy",
-    "ageMin": 4,
-    "ageMax": 7,
-    "iconName": "text_fields",
-    "colorHex": "9B59B6"
   }
 ]
