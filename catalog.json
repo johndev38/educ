@@ -13,17 +13,31 @@
     "zipUrl":      "https://johndev38.github.io/educ/exercises/additions.zip"
   },
   {
-  "id": "soustraction_colonne",
-  "title": "Soustractions en colonne",
-  "description": "Pose la soustraction et trouve le bon résultat. Exercice pour apprendre les soustractions avec retenue.",
-  "version": "1.0.0",
-  "zipUrl": "https://johndev38.github.io/educ/exercises/soustraction_colonne.zip",
-  "sizeBytes": 18000,
-  "category": "Mathématiques",
-  "difficulty": "easy",
-  "ageMin": 6,
-  "ageMax": 9,
-  "iconName": "calculate",
-  "colorHex": "4A90D9"
-}
+    "id": "soustraction_colonne",
+    "title": "Soustractions en colonne",
+    "description": "Pose la soustraction et trouve le bon résultat. Exercice pour apprendre les soustractions avec retenue.",
+    "version": "1.0.0",
+    "zipUrl": "https://johndev38.github.io/educ/exercises/soustraction_colonne.zip",
+    "sizeBytes": 18000,
+    "category": "Mathématiques",
+    "difficulty": "easy",
+    "ageMin": 6,
+    "ageMax": 9,
+    "iconName": "calculate",
+    "colorHex": "4A90D9"
+  },
+  {
+    "id": "alphabet_lettres",
+    "title": "Les lettres de l'alphabet",
+    "description": "Reconnais les lettres de l'alphabet en t'amusant.",
+    "version": "1.0.0",
+    "zipUrl": "https://johndev38.github.io/educ/exercises/alphabet_lettres.zip",
+    "sizeBytes": 18000,
+    "category": "Français",
+    "difficulty": "easy",
+    "ageMin": 4,
+    "ageMax": 7,
+    "iconName": "text_fields",
+    "colorHex": "9B59B6"
+  }
 ]
