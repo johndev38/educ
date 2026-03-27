@@ -1,0 +1,11 @@
+{
+  "id": "alphabet_lettres",
+  "title": "Les lettres de l'alphabet",
+  "description": "Reconnais les lettres de l'alphabet en t'amusant.",
+  "category": "Français",
+  "difficulty": "easy",
+  "ageMin": 4,
+  "ageMax": 7,
+  "iconName": "text_fields",
+  "colorHex": "9B59B6"
+}
