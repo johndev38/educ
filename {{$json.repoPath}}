@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Les divisions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <header class="top-card">
+      <p class="eyebrow">Mathématiques</p>
+      <h1 class="app-title">Les divisions</h1>
+      <p class="app-description">Trouve le bon quotient !</p>
+
+      <div class="progress-card" aria-label="Progression de l'exercice">
+        <div class="progress-track">
+          <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+        </div>
+        <div class="progress-meta">
+          <span>Progression</span>
+          <span id="progress-label">0 / 8</span>
+        </div>
+      </div>
+    </header>
+
+    <section id="question-section" class="question-card" aria-live="polite">
+      <div class="question-badge">Question</div>
+      <h2 id="question-text" class="question-text">Chargement...</h2>
+      <div id="answer-section" class="answer-section"></div>
+      <button id="btn-validate" class="btn-validate" type="button" hidden>Valider</button>
+      <p id="feedback" class="feedback feedback--empty">.</p>
+    </section>
+
+    <section id="result-screen" class="result-screen" aria-live="polite">
+      <div class="result-card">
+        <div id="result-emoji" class="result-emoji">🎉</div>
+        <h2 id="result-title" class="result-title">Bravo !</h2>
+        <p id="result-score" class="result-score">0 / 8</p>
+        <p id="result-detail" class="result-detail">0% de réussite</p>
+        <button id="btn-restart" class="btn-restart" type="button">Rejouer</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
