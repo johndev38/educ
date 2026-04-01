@@ -41,19 +41,6 @@
     "colorHex": "E67E22"
   },
   {
-    "id": "les_divisions",
-    "title": "Les divisions",
-    "description": "Entraîne-toi aux divisions et trouve le bon quotient !",
-    "version": "1",
-    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/les_divisions.zip",
-    "category": "Mathématiques",
-    "difficulty": "medium",
-    "ageMin": 7,
-    "ageMax": 11,
-    "iconName": "calculate",
-    "colorHex": "27AE60"
-  },
-  {
     "id": "taekwondo_termes",
     "title": "Termes de taekwondo",
     "description": "3 niveaux pour apprendre le vocabulaire du taekwondo jusqu'au 2e supérieur.",
@@ -69,12 +56,12 @@
   },
   {
     "id": "les_divisions",
-    "version": "1",
+    "version": "2",
     "title": "Les divisions",
-    "description": "Apprends à résoudre des divisions simples.",
+    "description": "Trouve le bon quotient !",
     "category": "Mathématiques",
-    "difficulty": "easy",
-    "ageMin": 7,
+    "difficulty": "medium",
+    "ageMin": 8,
     "ageMax": 10,
     "iconName": "calculate",
     "colorHex": "4A90D9",
