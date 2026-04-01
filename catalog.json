@@ -66,5 +66,18 @@
     "iconName": "calculate",
     "colorHex": "4A90D9",
     "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/les_divisions.zip"
+  },
+  {
+    "id": "les_fractions",
+    "version": "1",
+    "title": "Les divisions",
+    "description": "Apprends à résoudre des divisions simples.",
+    "category": "Mathématiques",
+    "difficulty": "easy",
+    "ageMin": 7,
+    "ageMax": 10,
+    "iconName": "calculate",
+    "colorHex": "4A90D9",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/les_fractions.zip"
   }
 ]
