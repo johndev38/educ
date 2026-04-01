@@ -1,0 +1,367 @@
+/* =============================================================
+   TEMPLATE – Style d'exercice EduKids
+   -------------------------------------------------------------
+   Ce fichier est le point de départ pour tout nouvel exercice.
+   Personnalise les variables CSS en haut du fichier.
+   ============================================================= */
+
+/* ------------------------------------------------------------------
+   1. VARIABLES — à personnaliser par exercice
+   ------------------------------------------------------------------ */
+:root {
+  /* Couleur principale de l'exercice (reprend colorHex du manifest) */
+  --color-primary:     #4A90D9;
+  --color-primary-lt:  #D6EAF8;   /* version claire pour fonds */
+
+  /* Feedback */
+  --color-correct:     #27AE60;
+  --color-correct-lt:  #D5F5E3;
+  --color-wrong:       #E74C3C;
+  --color-wrong-lt:    #FADBD8;
+
+  /* Neutrals */
+  --color-bg:          #F4F8FF;
+  --color-surface:     #FFFFFF;
+  --color-border:      #DDE6F0;
+  --color-text:        #1A2B3C;
+  --color-text-muted:  #7F8C9A;
+
+  /* Géométrie */
+  --radius-card:  20px;
+  --radius-btn:   14px;
+  --radius-input: 12px;
+  --shadow-card:  0 4px 24px rgba(74, 144, 217, 0.12);
+
+  /* Typographie — grande pour les enfants */
+  --font:          system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-size-xs:  0.85rem;
+  --font-size-sm:  1rem;
+  --font-size-md:  1.15rem;
+  --font-size-lg:  1.4rem;
+  --font-size-xl:  2rem;
+  --font-size-2xl: 2.8rem;
+}
+
+/* ------------------------------------------------------------------
+   2. RESET & BASE
+   ------------------------------------------------------------------ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /* Empêche le zoom iOS sur les champs input */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font);
+  font-size: var(--font-size-md);
+  background: var(--color-bg);
+  color: var(--color-text);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 16px 32px;
+  /* Largeur max pour tablette, centré */
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* ------------------------------------------------------------------
+   3. EN-TÊTE
+   ------------------------------------------------------------------ */
+.exercise-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.exercise-header__icon {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.exercise-header__title {
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+/* ------------------------------------------------------------------
+   4. BARRE DE PROGRESSION
+   ------------------------------------------------------------------ */
+.progress-track {
+  width: 100%;
+  height: 12px;
+  background: var(--color-border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: 8px;
+  transition: width 0.4s ease;
+  width: 0%;
+}
+
+.progress-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+/* ------------------------------------------------------------------
+   5. CARTE QUESTION
+   ------------------------------------------------------------------ */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: 28px 24px;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.card__label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text);
+  text-align: center;
+  line-height: 1.3;
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ------------------------------------------------------------------
+   6. ZONE DE RÉPONSE
+   ------------------------------------------------------------------ */
+
+/* --- 6a. Boutons choix multiple --- */
+.choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.choice-btn {
+  font-family: var(--font);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  padding: 20px 12px;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-btn);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  text-align: center;
+  transition: transform 0.12s ease, background 0.18s, border-color 0.18s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.choice-btn:hover:not(:disabled) {
+  background: var(--color-primary-lt);
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+.choice-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.choice-btn--correct {
+  background: var(--color-correct-lt) !important;
+  border-color: var(--color-correct) !important;
+  color: var(--color-correct) !important;
+  animation: anim-bounce 0.4s ease;
+}
+
+.choice-btn--wrong {
+  background: var(--color-wrong-lt) !important;
+  border-color: var(--color-wrong) !important;
+  color: var(--color-wrong) !important;
+  animation: anim-shake 0.4s ease;
+}
+
+.choice-btn:disabled {
+  cursor: default;
+  transform: none !important;
+}
+
+/* --- 6b. Champ texte libre --- */
+.answer-input-wrap {
+  display: flex;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.answer-input {
+  flex: 1;
+  font-family: var(--font);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  padding: 16px 18px;
+  border: 3px solid var(--color-border);
+  border-radius: var(--radius-input);
+  background: var(--color-surface);
+  color: var(--color-text);
+  outline: none;
+  transition: border-color 0.2s;
+  /* Empêche le zoom mobile sur focus */
+  font-size: max(16px, var(--font-size-lg));
+}
+
+.answer-input:focus {
+  border-color: var(--color-primary);
+}
+
+.answer-input--correct {
+  border-color: var(--color-correct) !important;
+  background: var(--color-correct-lt) !important;
+}
+
+.answer-input--wrong {
+  border-color: var(--color-wrong) !important;
+  background: var(--color-wrong-lt) !important;
+  animation: anim-shake 0.4s ease;
+}
+
+/* ------------------------------------------------------------------
+   7. BOUTON VALIDER
+   ------------------------------------------------------------------ */
+.btn-validate {
+  font-family: var(--font);
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  padding: 18px 32px;
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.12s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  margin-top: 4px;
+}
+
+.btn-validate:hover:not(:disabled) { opacity: 0.88; }
+.btn-validate:active:not(:disabled) { transform: scale(0.98); }
+
+.btn-validate:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ------------------------------------------------------------------
+   8. FEEDBACK
+   ------------------------------------------------------------------ */
+.feedback {
+  min-height: 2em;
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 14px;
+  transition: opacity 0.2s;
+}
+
+.feedback--correct { color: var(--color-correct); }
+.feedback--wrong   { color: var(--color-wrong); }
+.feedback--empty   { opacity: 0; }
+
+/* ------------------------------------------------------------------
+   9. ÉCRAN DE RÉSULTAT (affiché via JS)
+   ------------------------------------------------------------------ */
+.result-screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+  animation: anim-fadein 0.5s ease;
+}
+
+.result-screen.is-visible { display: flex; }
+
+.result-emoji  { font-size: 5.5rem; line-height: 1; }
+.result-title  { font-size: var(--font-size-xl); font-weight: 800; }
+.result-score  { font-size: var(--font-size-2xl); font-weight: 900; color: var(--color-primary); }
+.result-detail { font-size: var(--font-size-sm); color: var(--color-text-muted); }
+
+.btn-restart {
+  font-family: var(--font);
+  font-size: var(--font-size-md);
+  font-weight: 800;
+  padding: 18px 48px;
+  margin-top: 8px;
+  border: none;
+  border-radius: var(--radius-btn);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-restart:hover { opacity: 0.88; }
+
+/* ------------------------------------------------------------------
+   10. ANIMATIONS
+   ------------------------------------------------------------------ */
+@keyframes anim-bounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+@keyframes anim-shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-10px); }
+  60%       { transform: translateX(10px); }
+}
+
+@keyframes anim-fadein {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes anim-popin {
+  from { opacity: 0; transform: scale(0.6); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ------------------------------------------------------------------
+   11. RESPONSIVE TABLETTE (> 600px)
+   ------------------------------------------------------------------ */
+@media (min-width: 600px) {
+  body { padding: 28px 32px 48px; }
+
+  .card { padding: 36px 32px; }
+
+  .question-text { font-size: var(--font-size-2xl); }
+
+  .choices-grid { gap: 18px; }
+
+  .choice-btn { font-size: var(--font-size-xl); padding: 24px 16px; }
+}

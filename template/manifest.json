@@ -1,0 +1,11 @@
+{
+  "id":          "mon_exercice",
+  "title":       "Titre de l'exercice",
+  "description": "Description courte affichée dans la liste.",
+  "category":    "Mathématiques",
+  "difficulty":  "easy",
+  "ageMin":      5,
+  "ageMax":      9,
+  "iconName":    "calculate",
+  "colorHex":    "4A90D9"
+}
