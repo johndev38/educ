@@ -55,6 +55,19 @@
     "colorHex": "C0392B"
   },
   {
+    "id": "exercice_jardinage",
+    "version": "1",
+    "title": "Le jardinage",
+    "description": "Découvre les bases du jardinage en t'amusant !",
+    "category": "Sciences",
+    "difficulty": "easy",
+    "ageMin": 6,
+    "ageMax": 8,
+    "iconName": "science",
+    "colorHex": "27AE60",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/exercice_jardinage.zip"
+  },
+  {
     "id": "les_divisions",
     "version": "2",
     "title": "Les divisions",
