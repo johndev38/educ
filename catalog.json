@@ -115,5 +115,18 @@
     "iconName": "calculate",
     "colorHex": "4A90D9",
     "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/termes_karate_ceinture_blanche_au_3e_dan.zip"
+  },
+  {
+    "id": "histoire_de_france",
+    "version": "1",
+    "title": "Les divisions",
+    "description": "Apprends à résoudre des divisions simples.",
+    "category": "Mathématiques",
+    "difficulty": "easy",
+    "ageMin": 7,
+    "ageMax": 10,
+    "iconName": "calculate",
+    "colorHex": "4A90D9",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/histoire_de_france.zip"
   }
 ]
