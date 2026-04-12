@@ -141,5 +141,18 @@
     "iconName": "calculate",
     "colorHex": "4A90D9",
     "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/prehistoire_ce2.zip"
+  },
+  {
+    "id": "table_choisie",
+    "version": "1",
+    "title": "Table au choix",
+    "description": "Choisis une table de 2 à 12 et entraîne-toi à ton rythme, sans chrono !",
+    "category": "Mathématiques",
+    "difficulty": "medium",
+    "ageMin": 7,
+    "ageMax": 12,
+    "iconName": "close",
+    "colorHex": "8E44AD",
+    "zipUrl": "https://raw.githubusercontent.com/johndev38/educ/master/exercises/table_choisie.zip"
   }
 ]
