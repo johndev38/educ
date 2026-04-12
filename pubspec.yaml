@@ -62,3 +62,33 @@ flutter:
     - assets/exercises/complements/index.html
     - assets/exercises/complements/style.css
     - assets/exercises/complements/script.js
+
+    # Exercice 5 – Soustractions (3 niveaux)
+    - assets/exercises/soustraction/index.html
+    - assets/exercises/soustraction/style.css
+    - assets/exercises/soustraction/script.js
+    - assets/exercises/soustraction/manifest.json
+
+    # Exercice 6 – Conjugaison mélangée (1er + 2e + 3e groupe)
+    - assets/exercises/conjugaison_mixte/index.html
+    - assets/exercises/conjugaison_mixte/style.css
+    - assets/exercises/conjugaison_mixte/script.js
+    - assets/exercises/conjugaison_mixte/manifest.json
+
+    # Exercice 7 – Conjugaison 2e groupe
+    - assets/exercises/conjugaison_2eme_groupe/index.html
+    - assets/exercises/conjugaison_2eme_groupe/style.css
+    - assets/exercises/conjugaison_2eme_groupe/script.js
+    - assets/exercises/conjugaison_2eme_groupe/manifest.json
+
+    # Exercice 8 – Additions (3 niveaux)
+    - assets/exercises/additions/index.html
+    - assets/exercises/additions/style.css
+    - assets/exercises/additions/script.js
+    - assets/exercises/additions/manifest.json
+
+    # Exercice 9 – Tables de multiplication (3 niveaux + chrono)
+    - assets/exercises/multiplications/index.html
+    - assets/exercises/multiplications/style.css
+    - assets/exercises/multiplications/script.js
+    - assets/exercises/multiplications/manifest.json

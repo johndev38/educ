@@ -73,7 +73,7 @@ class CatalogEntry {
     return CatalogEntry(
       id:          json['id']      as String,
       title:       json['title']   as String,
-      version:     json['version'] as String,
+      version:     json['version'].toString(),
       zipUrl:      json['zipUrl']  as String,
       sizeBytes:   json['sizeBytes']   as int?,
       description: json['description'] as String?,

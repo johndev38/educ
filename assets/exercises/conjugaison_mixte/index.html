@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Conjugaison mélangée</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       EN-TÊTE  (titre + bouton aide)
+       ═══════════════════════════════════════════ -->
+  <header class="ex-header">
+    <div class="ex-header__left">
+      <span class="ex-header__icon" aria-hidden="true">📚</span>
+      <h1 class="ex-header__title">Conjugaison mélangée</h1>
+    </div>
+    <button id="btn-help" class="btn-help" type="button"
+            aria-label="Aide – rappel des terminaisons">?</button>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       BARRE DE PROGRESSION
+       ═══════════════════════════════════════════ -->
+  <div class="progress-track" role="progressbar"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div id="progress-fill" class="progress-fill"></div>
+  </div>
+  <p id="progress-label" class="progress-label" aria-live="polite">1 / 15</p>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION PRINCIPALE
+       ═══════════════════════════════════════════ -->
+  <main id="question-section">
+
+    <!-- Carte question -->
+    <div class="card">
+      <div class="card__top">
+        <span class="card__label">Conjugue au présent</span>
+        <span id="group-badge" class="group-badge" data-group="1">1ᵉʳ groupe</span>
+      </div>
+      <div id="question-text" class="formula" aria-live="polite">
+        <!-- injecté par script.js -->
+      </div>
+    </div>
+
+    <!-- Carte réponses -->
+    <div class="card">
+      <p class="card__label">Ta réponse</p>
+      <div id="answer-section" class="choices-grid"></div>
+      <p id="feedback" class="feedback feedback--empty"
+         role="status" aria-live="assertive"></p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN DE RÉSULTAT
+       ═══════════════════════════════════════════ -->
+  <section id="result-screen" class="result-screen" aria-live="polite">
+    <p id="result-emoji"  class="result-emoji">🎉</p>
+    <p id="result-title"  class="result-title">Excellent !</p>
+    <p id="result-score"  class="result-score">0 / 15</p>
+    <p id="result-detail" class="result-detail"></p>
+    <button id="btn-restart" class="btn-restart" type="button">
+      🔄 Rejouer
+    </button>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       MODALE D'AIDE — rappel des terminaisons
+       ═══════════════════════════════════════════ -->
+  <div id="help-modal" class="modal" role="dialog"
+       aria-modal="true" aria-label="Rappel des terminaisons" hidden>
+
+    <div class="modal__overlay" id="modal-overlay"></div>
+
+    <div class="modal__panel">
+      <div class="modal__header">
+        <h2 class="modal__title">📖 Rappel des terminaisons</h2>
+        <button id="help-close" class="modal__close" type="button"
+                aria-label="Fermer">✕</button>
+      </div>
+
+      <div class="modal__body">
+
+        <!-- Groupe 1 -->
+        <div class="modal__group modal__group--g1">
+          <p class="modal__group-title">
+            1<sup>er</sup> groupe
+            <span class="modal__group-hint">verbes en -ER</span>
+          </p>
+          <table class="modal__table">
+            <thead>
+              <tr>
+                <th>je</th><th>tu</th><th>il/elle</th>
+                <th>nous</th><th>vous</th><th>ils/elles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-e</td><td>-es</td><td>-e</td>
+                <td>-ons</td><td>-ez</td><td>-ent</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="modal__example">
+            Ex : aim<strong>er</strong> →
+            j'aim<strong>e</strong>, tu aim<strong>es</strong>,
+            nous aim<strong>ons</strong>…
+          </p>
+        </div>
+
+        <!-- Groupe 2 -->
+        <div class="modal__group modal__group--g2">
+          <p class="modal__group-title">
+            2<sup>e</sup> groupe
+            <span class="modal__group-hint">verbes en -IR (avec -ISS-)</span>
+          </p>
+          <table class="modal__table">
+            <thead>
+              <tr>
+                <th>je</th><th>tu</th><th>il/elle</th>
+                <th>nous</th><th>vous</th><th>ils/elles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>-is</td><td>-is</td><td>-it</td>
+                <td>-issons</td><td>-issez</td><td>-issent</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="modal__example">
+            Ex : fin<strong>ir</strong> →
+            je fin<strong>is</strong>, nous fin<strong>issons</strong>…
+          </p>
+        </div>
+
+        <!-- Groupe 3 -->
+        <div class="modal__group modal__group--g3">
+          <p class="modal__group-title">
+            3<sup>e</sup> groupe
+            <span class="modal__group-hint">verbes irréguliers</span>
+          </p>
+          <p class="modal__irregular-note">
+            ⚠️ Pas de règle fixe — il faut les apprendre par cœur !
+          </p>
+          <table class="modal__table modal__table--examples">
+            <thead>
+              <tr>
+                <th>verbe</th><th>je</th><th>tu</th><th>il/elle</th>
+                <th>nous</th><th>vous</th><th>ils/elles</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>vendre</td><td>vends</td><td>vends</td><td>vend</td>
+                  <td>vendons</td><td>vendez</td><td>vendent</td></tr>
+              <tr><td>partir</td><td>pars</td><td>pars</td><td>part</td>
+                  <td>partons</td><td>partez</td><td>partent</td></tr>
+              <tr><td>prendre</td><td>prends</td><td>prends</td><td>prend</td>
+                  <td>prenons</td><td>prenez</td><td>prennent</td></tr>
+              <tr><td>venir</td><td>viens</td><td>viens</td><td>vient</td>
+                  <td>venons</td><td>venez</td><td>viennent</td></tr>
+              <tr><td>faire</td><td>fais</td><td>fais</td><td>fait</td>
+                  <td>faisons</td><td>faites</td><td>font</td></tr>
+              <tr><td>voir</td><td>vois</td><td>vois</td><td>voit</td>
+                  <td>voyons</td><td>voyez</td><td>voient</td></tr>
+              <tr><td>pouvoir</td><td>peux</td><td>peux</td><td>peut</td>
+                  <td>pouvons</td><td>pouvez</td><td>peuvent</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div><!-- /.modal__body -->
+    </div><!-- /.modal__panel -->
+  </div><!-- /.modal -->
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -3,7 +3,7 @@
  * =====================================================================
  * Règles du jeu :
  *   - Questions sans fin jusqu'à la condition de victoire.
- *   - Chaque question dispose d'un timer de 5 secondes.
+ *   - Chaque question dispose d'un timer de 40 secondes.
  *   - Timeout = mauvaise réponse, la série repart à 0.
  *   - Victoire : 15 bonnes réponses consécutives.
  *   - Limite de sécurité : 150 questions (évite une session infinie).
@@ -21,8 +21,8 @@
    ════════════════════════════════════════════════════════════════════ */
 const CONFIG = {
   exerciseId:          'complements',
-  streakTarget:        15,      // nombre de bonnes réponses consécutives pour gagner
-  timerMs:             5000,    // durée du timer par question (ms)
+  streakTarget:        50,      // nombre de bonnes réponses consécutives pour gagner
+  timerMs:             40000,   // durée du timer par question (ms)
   tickMs:              50,      // fréquence de mise à jour du timer (ms)
   delayAfterCorrect:   700,     // délai avant question suivante après bonne réponse
   delayAfterWrong:     1600,    // délai avant question suivante après erreur / timeout

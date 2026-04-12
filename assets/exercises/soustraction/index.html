@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Soustractions</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 1 — Sélection du niveau
+       ═══════════════════════════════════════════ -->
+  <section id="level-screen" class="level-screen">
+    <header class="level-header">
+      <span class="level-header__icon" aria-hidden="true">➖</span>
+      <h1 class="level-header__title">Soustractions</h1>
+    </header>
+    <p class="level-subtitle">Choisis ton niveau pour commencer !</p>
+
+    <div class="level-cards">
+
+      <button class="level-card level-card--easy" type="button"
+              onclick="startGame('easy')">
+        <span class="level-card__emoji">🟢</span>
+        <span class="level-card__name">Facile</span>
+        <span class="level-card__range">Nombres jusqu'à 20</span>
+        <span class="level-card__timer">⏱ 10 secondes par question</span>
+      </button>
+
+      <button class="level-card level-card--medium" type="button"
+              onclick="startGame('medium')">
+        <span class="level-card__emoji">🟡</span>
+        <span class="level-card__name">Moyen</span>
+        <span class="level-card__range">Nombres jusqu'à 99</span>
+        <span class="level-card__timer">⏱ 8 secondes par question</span>
+      </button>
+
+      <button class="level-card level-card--hard" type="button"
+              onclick="startGame('hard')">
+        <span class="level-card__emoji">🔴</span>
+        <span class="level-card__name">Difficile</span>
+        <span class="level-card__range">Nombres jusqu'à 999</span>
+        <span class="level-card__timer">⏱ 6 secondes par question</span>
+      </button>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 2 — Jeu
+       ═══════════════════════════════════════════ -->
+  <main id="game-screen" hidden>
+
+    <!-- En-tête -->
+    <header class="ex-header">
+      <div class="ex-header__left">
+        <span class="ex-header__icon" aria-hidden="true">➖</span>
+        <h1 class="ex-header__title">Soustractions</h1>
+      </div>
+      <span id="level-badge" class="level-badge">Facile</span>
+    </header>
+
+    <!-- Progression -->
+    <div class="progress-track" role="progressbar"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+    <p id="progress-label" class="progress-label" aria-live="polite">1 / 10</p>
+
+    <!-- Chronomètre -->
+    <div class="timer-track" aria-label="Temps restant">
+      <div id="timer-fill" class="timer-fill"></div>
+    </div>
+
+    <!-- Carte question -->
+    <div class="card">
+      <p class="card__label">Calcule</p>
+      <div id="question-text" class="formula" aria-live="polite">
+        <!-- injecté par script.js -->
+      </div>
+    </div>
+
+    <!-- Carte réponse -->
+    <div class="card">
+      <p class="card__label">Ta réponse</p>
+      <div id="answer-section" class="choices-grid"></div>
+      <p id="feedback" class="feedback feedback--empty"
+         role="status" aria-live="assertive"></p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN 3 — Résultat
+       ═══════════════════════════════════════════ -->
+  <section id="result-screen" class="result-screen" hidden>
+    <p id="result-emoji"  class="result-emoji">🎉</p>
+    <p id="result-title"  class="result-title">Excellent !</p>
+    <p id="result-score"  class="result-score">0 / 10</p>
+    <p id="result-level"  class="result-level"></p>
+    <p id="result-detail" class="result-detail"></p>
+    <button id="btn-replay"        class="btn-action btn-action--primary"   type="button">
+      🔄 Rejouer ce niveau
+    </button>
+    <button id="btn-change-level"  class="btn-action btn-action--secondary" type="button">
+      🎯 Changer de niveau
+    </button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

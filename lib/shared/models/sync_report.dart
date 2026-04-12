@@ -35,9 +35,10 @@ class SyncReport {
   int get totalProcessed => updated.length + upToDate.length + errors.length;
 
   /// Le catalogue distant était inaccessible (cas hors-ligne).
-  /// Identifiable par la présence de l'erreur spéciale "catalog".
+  /// Identifiable par la présence de l'erreur spéciale "catalog" sans aucun
+  /// exercice traité (ni mis à jour, ni déjà à jour).
   bool get isCatalogUnreachable =>
-      errors.containsKey('catalog') && totalProcessed == 0;
+      errors.containsKey('catalog') && updated.isEmpty && upToDate.isEmpty;
 
   /// Rapport vide produit quand le serveur est inaccessible.
   factory SyncReport.offline() => SyncReport(

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+  <title>Le jardinage</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <header class="app-header">
+      <div class="badge">🌱 Sciences</div>
+      <h1>Le jardinage</h1>
+      <p class="description">Découvre les bases du jardinage en t'amusant !</p>
+    </header>
+
+    <section class="progress-card" aria-label="Progression de l'exercice">
+      <div class="progress-top">
+        <span>Progression</span>
+        <span id="progress-label">1 / 6</span>
+      </div>
+      <div class="progress-bar" aria-hidden="true">
+        <div id="progress-fill"></div>
+      </div>
+    </section>
+
+    <section id="question-section" class="question-card">
+      <h2 id="question-text">Question</h2>
+      <div id="answer-section"></div>
+      <button id="btn-validate" type="button" hidden>Valider</button>
+      <p id="feedback" class="feedback feedback--empty"> </p>
+    </section>
+
+    <section id="result-screen" class="result-screen" aria-live="polite">
+      <div class="result-card">
+        <div id="result-emoji" class="result-emoji">🎉</div>
+        <h2 id="result-title">Bravo !</h2>
+        <p id="result-score">0 / 6</p>
+        <p id="result-detail">0% de réussite</p>
+        <button id="btn-restart" type="button">Rejouer</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

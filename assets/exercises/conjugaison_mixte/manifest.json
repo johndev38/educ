@@ -1,0 +1,11 @@
+{
+  "id":          "conjugaison_mixte",
+  "title":       "Conjugaison mélangée",
+  "description": "1er, 2ème et 3ème groupe mélangés ! Avec l'aide des terminaisons.",
+  "category":    "Français",
+  "difficulty":  "hard",
+  "ageMin":      9,
+  "ageMax":      12,
+  "iconName":    "menu_book",
+  "colorHex":    "7B2FBE"
+}

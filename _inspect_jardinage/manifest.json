@@ -1,0 +1,15 @@
+﻿{
+    "id":  "exercice_jardinage",
+    "title":  "Le jardinage",
+    "description":  "DÃ©couvre les bases du jardinage en t\u0027amusant !",
+    "category":  "Sciences",
+    "difficulty":  "easy",
+    "ageMin":  6,
+    "ageMax":  8,
+    "iconName":  "science",
+    "colorHex":  "27AE60",
+    "totalQuestions":  6,
+    "passingRate":  0.6,
+    "answerType":  "choix_multiple",
+    "visualTheme":  "Un univers naturel avec des feuilles, des fleurs et un potager colorÃ©."
+}

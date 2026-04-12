@@ -19,7 +19,7 @@ import '../exercises/exercise_list_page.dart';
 
 /// URL du catalog.json hébergé sur votre serveur.
 /// Exemple : 'https://mon-serveur.com/edukids/catalog.json'
-const String _catalogUrl = 'https://mon-serveur.com/edukids/catalog.json';
+const String _catalogUrl = 'https://raw.githubusercontent.com/johndev38/educ/master/catalog.json';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -130,6 +130,30 @@ class _HomePageState extends State<HomePage> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colorScheme.primary,
                   foregroundColor: Colors.white,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              // Synchronisation manuelle
+              OutlinedButton.icon(
+                onPressed: _syncState == _SyncState.syncing ? null : _startSync,
+                icon: _syncState == _SyncState.syncing
+                    ? const SizedBox(
+                        width: 18,
+                        height: 18,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Icon(Icons.sync),
+                label: Text(
+                  _syncState == _SyncState.syncing
+                      ? 'Synchronisation…'
+                      : 'Rechercher de nouveaux exercices',
+                ),
+                style: OutlinedButton.styleFrom(
+                  minimumSize: const Size(double.infinity, 56),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

@@ -1,0 +1,11 @@
+{
+  "id":          "multiplications",
+  "title":       "Tables de multiplication",
+  "description": "3 niveaux : tables de 2 à 5, 2 à 10, ou les difficiles ! Réponds avant la fin du chrono.",
+  "category":    "Mathématiques",
+  "difficulty":  "medium",
+  "ageMin":      7,
+  "ageMax":      12,
+  "iconName":    "close",
+  "colorHex":    "E67E22"
+}

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Conjugaison – 1er groupe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       EN-TÊTE
+       ═══════════════════════════════════════════ -->
+  <header class="ex-header">
+    <div class="ex-header__icon" aria-hidden="true">✏️</div>
+    <h1 class="ex-header__title">Conjugaison – 1<sup>er</sup> groupe</h1>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       BARRE DE PROGRESSION
+       ═══════════════════════════════════════════ -->
+  <div class="progress-track" role="progressbar"
+       aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+    <div id="progress-fill" class="progress-fill"></div>
+  </div>
+  <p id="progress-label" class="progress-label" aria-live="polite">1 / 10</p>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION PRINCIPALE
+       ═══════════════════════════════════════════ -->
+  <main id="question-section">
+
+    <!-- Carte formule : pronom + verbe → ? -->
+    <div class="card">
+      <p class="card__label">Conjugue au présent</p>
+
+      <div id="question-text" class="formula" aria-live="polite">
+        <!-- injecté par script.js -->
+      </div>
+
+      <!-- Tableau de rappel des terminaisons (toujours visible) -->
+      <div class="rule-wrap">
+        <table class="rule-table" id="rule-table" aria-label="Rappel des terminaisons">
+          <thead>
+            <tr>
+              <th>je</th>
+              <th>tu</th>
+              <th>il/elle</th>
+              <th>nous</th>
+              <th>vous</th>
+              <th>ils/elles</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>-e</td>
+              <td>-es</td>
+              <td>-e</td>
+              <td>-ons</td>
+              <td>-ez</td>
+              <td>-ent</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Carte réponses -->
+    <div class="card">
+      <p class="card__label">Ta réponse</p>
+      <div id="answer-section"></div>
+      <button id="btn-validate" class="btn-validate" type="button"
+              style="display:none">✔ Valider</button>
+      <p id="feedback" class="feedback feedback--empty"
+         role="status" aria-live="assertive"></p>
+    </div>
+
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       ÉCRAN DE RÉSULTAT
+       ═══════════════════════════════════════════ -->
+  <section id="result-screen" class="result-screen" aria-live="polite">
+    <p id="result-emoji"  class="result-emoji">🎉</p>
+    <p id="result-title"  class="result-title">Excellent travail !</p>
+    <p id="result-score"  class="result-score">0 / 10</p>
+    <p id="result-detail" class="result-detail"></p>
+    <button id="btn-restart" class="btn-restart" type="button">
+      🔄 Rejouer
+    </button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>

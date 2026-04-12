@@ -1,0 +1,11 @@
+{
+    "id": "conjugaison_2eme_groupe",
+    "title": "Conjugaison 2ᵉ groupe",
+    "description": "Conjugue les verbes du 2ᵉ groupe au présent.",
+    "category": "Français",
+    "difficulty": "medium",
+    "ageMin": 8,
+    "ageMax": 11,
+    "iconName": "menu_book",
+    "colorHex": "3498DB"
+  }
