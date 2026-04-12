@@ -42,5 +42,71 @@
     "ageMax": 9,
     "iconName": "calculate",
     "colorHex": "E74C3C"
+  },
+  {
+    "id":          "soustraction",
+    "title":       "Soustractions",
+    "description": "3 niveaux : jusqu'à 20, 99 ou 999. Réponds avant la fin du chrono !",
+    "category":    "Mathématiques",
+    "difficulty":  "easy",
+    "ageMin":      6,
+    "ageMax":      11,
+    "iconName":    "calculate",
+    "colorHex":    "C0392B"
+  },
+  {
+    "id":          "conjugaison_mixte",
+    "title":       "Conjugaison mélangée",
+    "description": "1er, 2ème et 3ème groupe mélangés ! Avec l'aide des terminaisons.",
+    "category":    "Français",
+    "difficulty":  "hard",
+    "ageMin":      9,
+    "ageMax":      12,
+    "iconName":    "menu_book",
+    "colorHex":    "7B2FBE"
+  },
+  {
+    "id": "conjugaison_2eme_groupe",
+    "title": "Conjugaison 2ᵉ groupe",
+    "description": "Conjugue les verbes du 2ᵉ groupe au présent.",
+    "category": "Français",
+    "difficulty": "medium",
+    "ageMin": 8,
+    "ageMax": 11,
+    "iconName": "menu_book",
+    "colorHex": "3498DB"
+  },
+  {
+    "id":          "multiplications",
+    "title":       "Tables de multiplication",
+    "description": "3 niveaux : tables de 2 à 5, 2 à 10, ou les difficiles ! Réponds avant la fin du chrono.",
+    "category":    "Mathématiques",
+    "difficulty":  "medium",
+    "ageMin":      7,
+    "ageMax":      12,
+    "iconName":    "close",
+    "colorHex":    "E67E22"
+  },
+  {
+    "id":          "additions",
+    "title":       "Additions",
+    "description": "3 niveaux : jusqu'à 20, 99 ou 999. Réponds avant la fin du chrono !",
+    "category":    "Mathématiques",
+    "difficulty":  "easy",
+    "ageMin":      5,
+    "ageMax":      11,
+    "iconName":    "calculate",
+    "colorHex":    "2980B9"
+  },
+  {
+    "id":          "table_choisie",
+    "title":       "Table au choix",
+    "description": "Choisis une table de 2 à 12 et entraîne-toi à ton rythme, sans chrono !",
+    "category":    "Mathématiques",
+    "difficulty":  "medium",
+    "ageMin":      7,
+    "ageMax":      12,
+    "iconName":    "close",
+    "colorHex":    "8E44AD"
   }
 ]

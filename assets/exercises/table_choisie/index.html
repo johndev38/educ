@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Table au choix</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- EN-TÊTE -->
+  <header class="exercise-header">
+    <div class="exercise-header__icon" aria-hidden="true">✖️</div>
+    <h1 class="exercise-header__title">Table au choix</h1>
+  </header>
+
+  <!-- ============================================================
+       ÉCRAN DE SÉLECTION DE LA TABLE
+       ============================================================ -->
+  <section id="table-screen" class="table-screen">
+    <p class="table-screen__subtitle">Quelle table veux-tu réviser ?</p>
+    <div class="table-grid" id="table-grid">
+      <!-- Boutons générés par JS (tables de 2 à 12) -->
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BARRE DE PROGRESSION
+       ============================================================ -->
+  <div id="progress-wrap" class="progress-wrap" style="display:none">
+    <div class="progress-track" role="progressbar"
+         aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="progress-fill" class="progress-fill"></div>
+    </div>
+    <p id="progress-label" class="progress-label" aria-live="polite">1 / 10</p>
+  </div>
+
+  <!-- ============================================================
+       SECTION QUESTION
+       ============================================================ -->
+  <section id="question-section" style="display:none">
+
+    <!-- Rappel de la table en cours -->
+    <div class="table-badge" id="table-badge"></div>
+
+    <!-- Carte question -->
+    <div class="card">
+      <p class="card__label">Combien font…</p>
+      <p id="question-text" class="question-text" aria-live="polite">…</p>
+    </div>
+
+    <!-- Carte réponse -->
+    <div class="card">
+      <p class="card__label">Ta réponse</p>
+      <div id="answer-section"></div>
+      <p id="feedback" class="feedback feedback--empty"
+         role="status" aria-live="assertive"></p>
+    </div>
+
+  </section>
+
+  <!-- ============================================================
+       ÉCRAN DE RÉSULTAT
+       ============================================================ -->
+  <section id="result-screen" class="result-screen" aria-live="polite">
+    <p id="result-emoji"  class="result-emoji"  aria-hidden="true">🎉</p>
+    <p id="result-title"  class="result-title">Excellent travail !</p>
+    <p id="result-score"  class="result-score">0 / 10</p>
+    <p id="result-detail" class="result-detail"></p>
+    <button id="btn-restart"  class="btn-restart"  type="button">🔄 Rejouer cette table</button>
+    <button id="btn-tables"   class="btn-tables"   type="button">📋 Changer de table</button>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
