@@ -98,6 +98,15 @@ body {
   font-weight: 600;
 }
 
+.level-timer-wrap {
+  margin-bottom: 4px;
+}
+
+.timer-label--mmss {
+  min-width: 3.2em;
+  font-variant-numeric: tabular-nums;
+}
+
 .level-grid {
   display: flex;
   flex-direction: column;

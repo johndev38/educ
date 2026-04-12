@@ -4,9 +4,11 @@
    CONFIGURATION
    ================================================================ */
 const CONFIG = {
-  exerciseId:     'multiplications',
-  totalQuestions: 10,
-  timerSeconds:   5,
+  exerciseId:          'multiplications',
+  totalQuestions:      10,
+  timerSeconds:        5,
+  /** Temps (secondes) pour choisir un niveau sur l'écran d'accueil */
+  levelChoiceSeconds:  120,
   delayNextMs:    900,
   passingRate:    0.6,
 };
@@ -33,6 +35,8 @@ const state = {
   answers:      [],
   timerInterval: null,
   timerRemaining: 0,
+  levelChoiceInterval: null,
+  levelChoiceRemaining: 0,
 };
 
 /* ================================================================
@@ -41,6 +45,8 @@ const state = {
 const dom = {
   levelScreen:     document.getElementById('level-screen'),
   levelBtns:       document.querySelectorAll('.level-btn'),
+  levelTimerBar:   document.getElementById('level-timer-bar'),
+  levelTimerLabel: document.getElementById('level-timer-label'),
 
   progressWrap:    document.getElementById('progress-wrap'),
   progressFill:    document.getElementById('progress-fill'),
@@ -69,6 +75,8 @@ dom.levelBtns.forEach(btn => {
   btn.addEventListener('click', () => startGame(btn.dataset.level));
 });
 
+_startLevelChoiceTimer();
+
 dom.btnLevels.addEventListener('click', showLevelScreen);
 dom.btnRestart.addEventListener('click', () => startGame(state.level));
 
@@ -76,6 +84,7 @@ dom.btnRestart.addEventListener('click', () => startGame(state.level));
    DÉMARRAGE DU JEU
    ================================================================ */
 function startGame(level) {
+  _stopLevelChoiceTimer();
   state.level        = level;
   state.questions    = generateQuestions(level);
   state.currentIndex = 0;
@@ -98,6 +107,57 @@ function showLevelScreen() {
   dom.questionSection.style.display = 'none';
   dom.progressWrap.style.display    = 'none';
   dom.levelScreen.style.display     = '';
+  _startLevelChoiceTimer();
+}
+
+/* ================================================================
+   TIMER — CHOIX DU NIVEAU (2 min)
+   ================================================================ */
+function _formatMmSs(totalSeconds) {
+  const s = Math.max(0, Math.floor(totalSeconds));
+  const m = Math.floor(s / 60);
+  const r = s % 60;
+  return `${m}:${r < 10 ? '0' : ''}${r}`;
+}
+
+function _startLevelChoiceTimer() {
+  _stopLevelChoiceTimer();
+  state.levelChoiceRemaining = CONFIG.levelChoiceSeconds;
+  _updateLevelChoiceUI(state.levelChoiceRemaining);
+
+  state.levelChoiceInterval = setInterval(() => {
+    state.levelChoiceRemaining--;
+    _updateLevelChoiceUI(state.levelChoiceRemaining);
+
+    if (state.levelChoiceRemaining <= 0) {
+      _stopLevelChoiceTimer();
+      startGame('medium');
+    }
+  }, 1000);
+}
+
+function _stopLevelChoiceTimer() {
+  if (state.levelChoiceInterval) {
+    clearInterval(state.levelChoiceInterval);
+    state.levelChoiceInterval = null;
+  }
+}
+
+function _updateLevelChoiceUI(remaining) {
+  const total = CONFIG.levelChoiceSeconds;
+  const pct = (remaining / total) * 100;
+  dom.levelTimerBar.style.width = `${Math.max(0, pct)}%`;
+  dom.levelTimerLabel.textContent = _formatMmSs(remaining);
+
+  const warn = total * 0.25;
+  const danger = 10;
+  dom.levelTimerBar.className =
+    'timer-bar' +
+    (remaining <= danger
+      ? ' timer-bar--danger'
+      : remaining <= warn
+        ? ' timer-bar--warning'
+        : '');
 }
 
 /* ================================================================

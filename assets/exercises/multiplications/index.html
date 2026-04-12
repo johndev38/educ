@@ -20,6 +20,14 @@
        ============================================================ -->
   <section id="level-screen" class="level-screen">
     <p class="level-screen__subtitle">Choisis ton niveau</p>
+    <div id="level-timer-wrap" class="timer-wrap level-timer-wrap"
+         role="timer" aria-live="polite"
+         aria-label="Temps restant pour choisir un niveau">
+      <div id="level-timer-bar-track" class="timer-bar-track">
+        <div id="level-timer-bar" class="timer-bar"></div>
+      </div>
+      <span id="level-timer-label" class="timer-label timer-label--mmss">2:00</span>
+    </div>
     <div class="level-grid">
       <button class="level-btn" data-level="easy">
         <span class="level-btn__emoji">🌱</span>
